@@ -253,7 +253,9 @@ extern const char MSG_LOADING_COLOR [] PROGMEM_I1 = ISTR("Loading color"); ////M
 extern const char MSG_CORRECTLY [] PROGMEM_I1 = ISTR("Changed correctly"); ////MSG_CORRECTLY c=19
 extern const char MSG_NOT_LOADED [] PROGMEM_I1 = ISTR("Filament not loaded"); ////MSG_NOT_LOADED c=19
 extern const char MSG_NOT_COLOR [] PROGMEM_I1 = ISTR("Color not correct"); ////MSG_NOT_COLOR c=19
+#ifndef REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 extern const char MSG_AUTOLOADING_ENABLED [] PROGMEM_I1 = ISTR("Autoloading filament is active, just press the knob and insert filament..."); ////MSG_AUTOLOADING_ENABLED c=20 r=4
+#endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 extern const char MSG_FILAMENT_USED [] PROGMEM_I1 = ISTR("Filament used"); ////MSG_FILAMENT_USED c=19
 extern const char MSG_PRINT_TIME [] PROGMEM_I1 = ISTR("Print time"); ////MSG_PRINT_TIME c=19
 extern const char MSG_TOTAL_FILAMENT [] PROGMEM_I1 = ISTR("Total filament"); ////MSG_TOTAL_FILAMENT c=19

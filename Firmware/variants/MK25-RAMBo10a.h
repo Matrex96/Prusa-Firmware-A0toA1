@@ -527,4 +527,7 @@
 //Show filename instead of print time after SD card print finished
 //#define SHOW_FILENAME_AFTER_FINISH
 
+//Remove the "AutoLoad filament" LCD menu entry if autoload is enabled.
+//#define REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
+
 #endif //__CONFIGURATION_PRUSA_H

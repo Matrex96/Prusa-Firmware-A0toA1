@@ -2296,13 +2296,13 @@ void lcd_load_filament_color_check()
     }
 }
 
-#ifdef FILAMENT_SENSOR
+#if defined(FILAMENT_SENSOR) && !defined(REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY)
 static void lcd_menu_AutoLoadFilament()
 {
     lcd_display_message_fullscreen_nonBlocking_P(_T(MSG_AUTOLOADING_ENABLED));
     menu_back_if_clicked();
 }
-#endif //FILAMENT_SENSOR
+#endif //FILAMENT_SENSOR && REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 
 static void preheat_or_continue(FilamentAction action) {
 
@@ -5351,13 +5351,16 @@ static void lcd_main_menu()
                     if (!fsensor.getAutoLoadEnabled()) {
                         MENU_ITEM_SUBMENU_P(_T(MSG_LOAD_FILAMENT), lcd_LoadFilament);
                     }
-                    if (!fsensor.getFilamentPresent()) {
-                        if (fsensor.getAutoLoadEnabled()) {
-                            MENU_ITEM_SUBMENU_P(_T(MSG_AUTOLOAD_FILAMENT), lcd_menu_AutoLoadFilament);
-                        }
-                    } else {
+                    if (fsensor.getFilamentPresent()) {
                         MENU_ITEM_SUBMENU_P(_T(MSG_UNLOAD_FILAMENT), lcd_unLoadFilament);
                     }
+#ifndef REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
+                    else {
+                        if (fsensor.getAutoLoadEnabled()) {
+                            MENU_ITEM_SUBMENU_P(_T(MSG_AUTOLOAD_FILAMENT), lcd_menu_AutoLoadFilament);
+                        }                        
+                    }
+#endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY 
                 } else {
 #endif //FILAMENT_SENSOR
                     MENU_ITEM_SUBMENU_P(_T(MSG_LOAD_FILAMENT), lcd_LoadFilament);
@@ -5620,7 +5623,7 @@ static void lcd_backlight_menu()
     MENU_ITEM_EDIT_int3_P(_T(MSG_BL_HIGH), &backlightLevel_HIGH, backlightLevel_LOW, 255);
     MENU_ITEM_EDIT_int3_P(_T(MSG_BL_LOW), &backlightLevel_LOW, 0, backlightLevel_HIGH);
 	MENU_ITEM_TOGGLE_P(_T(MSG_MODE), ((backlightMode==BACKLIGHT_MODE_BRIGHT) ? _T(MSG_BRIGHT) : ((backlightMode==BACKLIGHT_MODE_DIM) ? _T(MSG_DIM) : _T(MSG_AUTO))), backlight_mode_toggle);
-    MENU_ITEM_EDIT_int3_P(_T(MSG_TIMEOUT), &backlightTimer_period, 1, 999);
+    MENU_ITEM_EDIT_int3_P(_T(MSG_TIMEOUT), &backlightTimer_period, LCD_BACKLIGHT_TIMEOUT, LCD_BACKLIGHT_TIMEOUT*60);
 
     MENU_END();
 }
